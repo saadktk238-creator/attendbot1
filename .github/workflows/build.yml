@@ -17,10 +17,17 @@ jobs:
         uses: gradle/actions/setup-gradle@v3
 
       - name: Build APK
-        run: gradle assembleDebug
+        # Hum seedha gradle use karenge gradlew ki bajaye
+        run: |
+          if [ -d "AttendBot" ]; then
+            cd AttendBot
+            gradle assembleDebug
+          else
+            gradle assembleDebug
+          fi
 
-      - name: Upload APK
+      - name: Find and Upload APK
         uses: actions/upload-artifact@v4
         with:
           name: AttendBot-APK
-          path: app/build/outputs/apk/debug/app-debug.apk
+          path: "**/app-debug.apk"
