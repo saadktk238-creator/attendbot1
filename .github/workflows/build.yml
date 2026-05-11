@@ -13,20 +13,13 @@ jobs:
           java-version: '17'
           distribution: 'temurin'
 
-      - name: Setup Gradle
-        uses: gradle/actions/setup-gradle@v3
-        with:
-          gradle-version: 8.1.1
-
-      - name: Build APK
+      - name: Build with Gradle
         run: |
-          # 1. Agar files AttendBot folder ke andar hain to wahan jaye
-          if [ -f "AttendBot/build.gradle" ]; then
+          if [ -d "AttendBot" ]; then 
             cd AttendBot
           fi
-          
-          # 2. Build shuru karein
-          gradle :app:assembleDebug --stacktrace
+          chmod +x gradlew
+          ./gradlew assembleDebug --stacktrace
 
       - name: Find and Upload APK
         uses: actions/upload-artifact@v4
