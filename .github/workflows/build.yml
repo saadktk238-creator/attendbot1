@@ -15,10 +15,12 @@ jobs:
 
       - name: Setup Gradle
         uses: gradle/actions/setup-gradle@v3
+        with:
+          gradle-version: 8.1.1 # Hum khud version bata rahe hain taake wrapper ki zaroorat na rahe
 
       - name: Build APK
-        # Hum seedha gradle use karenge gradlew ki bajaye
         run: |
+          # Agar AttendBot folder ke andar hai to wahan jaye, warna bahar hi run kare
           if [ -d "AttendBot" ]; then
             cd AttendBot
             gradle assembleDebug
