@@ -13,16 +13,8 @@ jobs:
           java-version: '17'
           distribution: 'temurin'
 
-      - name: Build with Gradle
-        run: |
-          if [ -d "AttendBot" ]; then 
-            cd AttendBot
-          fi
-          chmod +x gradlew
-          ./gradlew assembleDebug --stacktrace
+      - name: Make gradlew executable
+        run: chmod +x gradlew
 
-      - name: Find and Upload APK
-        uses: actions/upload-artifact@v4
-        with:
-          name: AttendBot-APK
-          path: "**/app-debug.apk"
+      - name: Build with Gradle
+        run: ./gradlew assembleDebug --stacktrace
